@@ -3,8 +3,8 @@
   <lh><b>Programs:</b></lh>
   <li>i3-gaps</li>
   <li>i3lock</li>
-  <li>polybar</li><
-  li>rofi</li>
+  <li>polybar</li>
+  <li>rofi</li>
   <li>dunst</li>
   <li>redshift</li>
   <li>i3blocks [not in use]</li>
