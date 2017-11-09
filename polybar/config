@@ -1,0 +1,402 @@
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+;background = ${xrdb:color0}
+background = #3d3d3d
+;background-alt = ${xrdb:color2} 
+;foreground = ${xrdb:color7}
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #5d5d5d
+secondary = #2d2d2d
+alert = #bd2c40
+cancel = #FF0000
+continue = #00FF00
+
+[bar/example]
+;monitor = ${env:MONITOR}
+width = 100%
+height = 30
+;offset-x = 0
+;offset-y = 5 
+;radius = 7.0
+fixed-center = True 
+
+;background = #00000000
+background = #3d3d3d5f
+foreground = ${colors.foreground}
+
+line-size = 1
+line-color = ${colors.alert} 
+
+border-size = 1
+border-color = #00000000
+
+padding-left = 0
+padding-right = 2 
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = FontAwesome:pixelsize=10;0
+;font-2 = Roboto-Bold:fontformat=truetype:size=8:antialias=false;0
+font-1 = System San Francisco Display:fontformat=truetype:style=Regular:pixelsize=10;1
+font-3 = System San Francisco Display:pixelsize=10;3
+font-2 = System San Francisco Display:style=Ultralight:pixelsize=4;2
+
+modules-left = i3 
+modules-center = music date weather
+modules-right = battery volume cpu memory temperature wlan powermenu keyboard redshift
+
+;tray-position = right
+;tray-padding = 5
+;tray-transparent = false
+;tray-background = ${colors.background} 
+;tray-detached = false
+;tray-underline = ${colors.primary}
+
+wm-restack = i3
+;override-redirect = true
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+[module/weather]
+type = custom/script
+interval = 10
+format = <label>
+format-prefix-foreground = ${colors.foreground}
+exec =python ~/.config/polybar/weather
+;format-underline = ${colors.foreground-alt}
+format-font = 1 
+
+[module/redshift]
+type = custom/script
+interval = 5
+exec = ~/.config/polybar/redshift.sh
+format=<label>
+format-prefix-underline=${colors.foreground}
+label=%output%
+;label-underline=${colors.foreground-alt}
+
+;[module/xwindow]
+;type = internal/xwindow
+;label = %title:0:30:-%
+;label-active-font = 2
+;interval = 1
+;label-underline= ${colors.foreground}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+mount-0 = /
+label-mounted =  %percentage_used%% 
+format-mounted = <label-mounted>
+;label-mounted-underline= ${colors.foreground-alt}
+label-mounted-foreground = ${colors.foreground}
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+strip-wsnumbers = true
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = ${colors.foreground}
+label-mode-background = ${colors.background}
+
+; focused = Active workspace on focused monitor
+label-focused = %name%
+label-focused-background = #dd3d3d5f
+;label-focused-underline = ${colors.foreground-alt}
+label-focused-padding = 2 
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %name%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %name%
+label-visible-background = ${colors.background}
+;label-visible-underline = ${colors.foreground-alt}
+label-visible-padding = 2
+
+; urgent = Workspace with urgency hint set
+label-urgent = %name%
+label-urgent-background = #99FF0000
+label-urgent-padding = 2
+
+[module/music]
+type = custom/script
+interval = 2
+
+label = %output:0:80:...%
+label-padding = 1 
+label-font = 1
+exec = ~/.config/polybar/mpris.sh
+click-left = playerctl previous
+click-middle = playerctl play-pause
+click-right = playerctl next
+
+[module/mpd]
+type = internal/mpd 
+format-online = <label-song> <icon-prev> <icon-stop>  <icon-next>  
+label-song = 𝄞 %artist% - %title%
+format-online-underline=${colors.foreground-alt}
+
+
+host = 127.0.0.1
+port = 6600
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 55
+label-song-ellipsis = true
+
+bar-progress-width = 35
+bar-progress-indicator = |
+bar-progress-fill = ─
+bar-progress-empty = ─
+
+[module/cpu]
+type=internal/cpu
+interval=2
+;format-prefix=
+format-prefix-foreground=${colors.foreground}
+;format-underline = ${colors.foreground-alt}
+label= %percentage%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+;format-prefix =  
+;format-prefix-foreground = ${colors.foreground}
+;format-underline = ${colors.foreground-alt}
+label = %gb_used%
+
+[module/date]
+type = internal/date
+interval = 5
+date = %b-%d
+time = %H:%M
+
+format-prefix-foreground = ${colors.foreground}
+;format-underline = ${colors.foreground-alt}
+label = %date% - %time%
+
+[module/volume]
+type = internal/volume
+interval = 1
+format-volume = <label-volume> 
+label-volume = %percentage% 
+label-volume-foreground = ${colors.foreground}
+;label-volume-underline = ${colors.foreground-alt}
+
+;format-muted-suffix = ""
+;format-muted-foreground = ${colors.foreground}
+label-muted =  
+
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 75
+;format-prefix = 
+format = <label>
+;format-underline = ${colors.foreground-alt}
+;format-warn = <ramp> <lael-warn>
+;format-warn-underline = ${self.format-underline}
+
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${colors.foreground}
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+;format-connected-prefix = 
+format-connected = <label-connected>
+;format-connected-underline = #9f78e1
+label-connected = %essid%
+
+;format-disconnected =
+format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/powermenu]
+type = custom/menu
+format-spacing = 1
+label-open =  
+label-open-foreground = ${colors.secondary}
+label-close = 
+label-close-foreground = ${colors.cancel}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+;menu-1-0 = cancel
+;menu-1-0-exec = menu-open-0
+menu-1-0= 
+menu-1-0-foreground = ${colors.continue}
+menu-1-0-exec = reboot
+
+menu-2-0 = 
+menu-2-0-foreground = ${colors.continue}
+menu-2-0-exec =shutdown now
+;menu-2-1 = cancel
+;menu-2-1-exec = menu-open-0
+
+
+[settings]
+screenchange-reload = true
+compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[module/battery]
+type = internal/battery
+
+; This is useful in case the battery never reports 100% charge
+full-at = 99
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT1
+adapter = ACAD
+
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
+poll-interval = 5
+
+; see "man date" for details on how to format the time string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+; Default: %H:%M:%S
+time-format = %H:%M
+
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <animation-charging> <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-discharging = <ramp-capacity> <label-discharging>
+
+; Available tags:
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;format-full = <ramp-capacity> <label-full>
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = Charging %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-full = Fully charged
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+; Only applies if <bar-capacity> is used
+bar-capacity-width = 10
+
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+; Framerate in milliseconds
+animation-charging-framerate = 750
+
+[module/keyboard]
+type = internal/xkeyboard
+
+; List of indicators to ignore
+blacklist-0 = scroll lock
+
+; Available tags:
+;   <label-layout> (default)
+;   <label-indicator> (default)
+format = <label-indicator>
+format-spacing = 0
+
+; Available tokens:
+;   %layout%
+;   %name%
+;   %number%
+; Default: %layout%
+;label-layout = %name%
+;label-layout-padding = 2
+;label-layout-background = #bc99ed
+;label-layout-foreground = #000
+
+; Available tokens:
+;   %name%
+; Default: %name%
+label-indicator = %name%
+label-indicator-padding = 0
+label-indicator-font = 2
+;label-indicator-background = #8139e8
+
+; vim:ft=dosini
