@@ -1,11 +1,14 @@
 # dotfiles
-programs:
-i3-gaps
-i3blocks [not in use]
-polybar
-i3lock
+<ul>
+  <lh>programs:</lh>
+  <li>i3-gaps</li>
+  <li>i3blocks [not in use]</li>
+  <li>polybar</li>
+  <li>i3lock</li>
+  <li>redshift</li>
 and something else
 
-Fonts:
-FontAwesome
-System San Francisco Display
+<lh>Fonts:</lh>
+<li>FontAwesome</li>
+<li>System San Francisco Display</li>
+</ul>
