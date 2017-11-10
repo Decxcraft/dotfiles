@@ -20,7 +20,7 @@ alert = #bd2c40
 cancel = #FF0000
 continue = #00FF00
 
-[bar/example]
+[bar/topbar]
 ;monitor = ${env:MONITOR}
 width = 100%
 height = 30
@@ -51,8 +51,8 @@ font-1 = System San Francisco Display:fontformat=truetype:style=Regular:pixelsiz
 font-3 = System San Francisco Display:pixelsize=10;3
 font-2 = System San Francisco Display:style=Ultralight:pixelsize=4;2
 
-modules-left = i3 
-modules-center = music date weather
+modules-left = i3 music 
+modules-center = date weather
 modules-right = battery volume cpu memory temperature wlan powermenu keyboard redshift
 
 ;tray-position = right
@@ -142,7 +142,7 @@ type = custom/script
 interval = 2
 
 label = %output:0:80:...%
-label-padding = 1 
+label-padding-left = 20 
 label-font = 1
 exec = ~/.config/polybar/mpris.sh
 click-left = playerctl previous

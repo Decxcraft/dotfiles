@@ -11,12 +11,6 @@
 
 set $mod Mod4
 
-#Gaps-setup
-hide_edge_borders both
-for_window [class="^.*"] border pixel 0
-gaps inner 10
-gaps outer 1 
-
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:System San Francisco Display 8
@@ -108,11 +102,19 @@ set $workspace2 "2:"
 set $workspace3 "3:"
 set $workspace4 "4:"
 set $workspace5 "5:"
-set $workspace6 "6:"
-set $workspace7 "7:"
+set $workspace6 "6:"
+set $workspace7 "7:"
 set $workspace8 "8:"
 set $workspace9 "9:"
 set $workspace10 "10:"
+
+#Gaps-setup
+hide_edge_borders both
+for_window [class="^.*"] border pixel 0
+gaps inner 7
+gaps outer 1 
+workspace $workspace10 gaps inner 0
+workspace $workspace10 gaps outer 0
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -203,10 +205,10 @@ bindsym $mod+r mode "resize"
 
 #Start-up programs--
 exec_always pkill polybar
-exec_always polybar example
+exec_always polybar topbar
 exec_always compton -f
 exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/Wallpaper-028.jpg
-exec --no-startup-id dunst -config ~/.config/dunst/config &
+exec_always --no-startup-id dunst -config ~/.config/dunst/config 
 exec --no-startup-id pulseeffects
 exec --no-startup-id google-chrome
 exec --no-startup-id spotify
@@ -216,14 +218,18 @@ exec_always gsettings set org.gnome.desktop.background show-desktop-icons false
 exec_always gsettings set org.nemo.desktop show-desktop-icons false
 # Launch Unclutter to hide the mouse
 exec --no-startup-id unclutter &
-exec --no-startup-id redshift -c ~/.config/redshift/redshift.conf
+exec --no-startup-id redshift -c /home/deco/.config/redshift/redshift.conf
 
 #Assign apps to workspaces
 assign [class="Google-chrome"]	$workspace1
 assign [class="Gnome-terminal"] $workspace2
 assign [class="Nemo"] $workspace3
 #assign [class="spotify"] $workspace4
+assign [class="Transmission-gtk"] $workspace6
+assign [class="libreoffice-writer"] $workspace7
+assign [class="libreoffice"] $workspace7
 assign [class="VirtualBox"]	$workspace10
+
 #Usign for_window because regular assign doesnt work with this.
 for_window [class="Spotify"] move to workspace $workspace4
 for_window [class="Pulseeffects"] move to workspace $workspace5
@@ -232,5 +238,5 @@ for_window [class="Pulseeffects"] floating disable
 
 #Personal bindings
 bindsym $mod+e exec nemo
-
+bindsym Print exec "mkdir -p ~/Pictures/Screenshots && scrot -q 100 ~/Pictures/Screenshots/screenshot.jpg"
 

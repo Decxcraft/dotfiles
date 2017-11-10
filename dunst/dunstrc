@@ -29,19 +29,19 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x5-30+20"
+    geometry = "300x5-30+35"
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
 
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
-    shrink = no
+    shrink = yes
 
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 15
+    transparency = 7
 
     # The height of the entire notification.  If the height is smaller
     # than the font height and padding combined, it will be raised
@@ -64,7 +64,8 @@
     frame_width = 3
 
     # Defines color of the frame around the notification window.
-    frame_color = "#aaaaaa"
+    # default #aaaaaa
+    frame_color = "#adadad"
 
     # Define a color for the separator.
     # possible values are:
@@ -85,7 +86,7 @@
 
     ### Text ###
 
-    font = Monospace 8
+    font = System San Francisco Display 10
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -245,8 +246,8 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#222222"
-    foreground = "#888888"
+    background = "#383a3b" #default #222222
+    foreground = "#ffffff" #default #888888
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
@@ -265,6 +266,7 @@
     timeout = 0
     # Icon for notifications with critical urgency, uncomment to enable
     #icon = /path/to/icon
+    
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
@@ -303,24 +305,12 @@
 #    summary = "foobar"
 #    history_ignore = yes
 
-#[signed_on]
-#    appname = Pidgin
-#    summary = "*signed on*"
-#    urgency = low
-#
-#[signed_off]
-#    appname = Pidgin
-#    summary = *signed off*
-#    urgency = low
-#
-#[says]
-#    appname = Pidgin
-#    summary = *says*
-#    urgency = critical
-#
-#[twitter]
-#    appname = Pidgin
-#    summary = *twitter.com*
-#    urgency = normal
+
+
+[Spotify]
+    appname = Spotify
+    format = "<span foreground="#84bd00" font="12"> </span><b>Now Playing:</b>\n%s\n%b"
+    timeout = 5
+    #
 #
 # vim: ft=cfg
