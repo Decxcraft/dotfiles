@@ -1,0 +1,57 @@
+#!/bin/bash
+
+#Installing some utilities HTOP, VLC, GDEBI
+
+cd ~
+sudo apt-get update -qq
+sudo apt-get install -yy htop gdebi vlc default-jdk python-setuptools python vim pip
+
+#Firefox
+cd ~
+sudo apt install -yy Firefox
+
+#CHROME
+cd /home/deco/Downloads
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo gdebi -n google-chrome-stable_current_amd64.deb
+rm -f google-chrome-stable_current-amd64.deb
+cd ~
+
+#SPOTIFY
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update -qq
+sudo apt-get install -yy spotify-client
+
+#Installing DOCKY
+#sudo add-apt-repository ppa:docky-core/stable
+#sudo apt-get update -qq
+#sudo apte-get install -yy docky
+
+#MegaSync
+cd /home/deco/Downloads
+wget https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/megasync-xUbuntu_16.04_amd64.deb
+sudo gdebi -n megasync-xUbuntu_16.04_amd64.deb
+cd ~
+
+#Slack
+cd /home/deco/Downloads
+wget https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.1-amd64.deb
+sudo gdebi -n slack-desktop-2.8.1-amd64.deb
+cd ~
+
+#SublimeText
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+sudo apt-get install -yy apt-transport-https
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+sudo apt-get update -qq
+sudo apt-get install -yy sublime-text
+
+#VIRTUALBOX
+sudo apt-get install -yy virtualbox virtualbox-ext-pack
+sudo adduser deco vboxusers
+
+#Franz-Messaging app manager
+cd /home/deco/Downloads
+wget https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.14/franz_5.0.0-beta.14_amd64.deb
+sudo dpkg -i franz_5.0.0-beta.14_amd64.deb

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://nullr0ute.com/xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="https://nullr0ute.com/wp-content/themes/twentyfifteen/js/html5.js"></script>
+	<![endif]-->
+	<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
+<title>Connect to a wireless network using command line nmcli &#8211; nullr0ute&#039;s blog</title>
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="nullr0ute&#039;s blog &raquo; Feed" href="https://nullr0ute.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="nullr0ute&#039;s blog &raquo; Comments Feed" href="https://nullr0ute.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="nullr0ute&#039;s blog &raquo; Connect to a wireless network using command line nmcli Comments Feed" href="https://nullr0ute.com/2016/09/connect-to-a-wireless-network-using-command-line-nmcli/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/nullr0ute.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.8.3"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,56826,8203,55356,56819),0,0),c=j.toDataURL(),b!==c&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55358,56794,8205,9794,65039),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55358,56794,8203,9794,65039),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='social_comments-css'  href='https://nullr0ute.com/wp-content/plugins/social/assets/comments.css?ver=3.0' type='text/css' media='screen' />
+<link rel='stylesheet' id='twentyfifteen-fonts-css'  href='https://fonts.googleapis.com/css?family=Noto+Sans%3A400italic%2C700italic%2C400%2C700%7CNoto+Serif%3A400italic%2C700italic%2C400%2C700%7CInconsolata%3A400%2C700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='https://nullr0ute.com/wp-content/themes/twentyfifteen/genericons/genericons.css?ver=3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='twentyfifteen-style-css'  href='https://nullr0ute.com/wp-content/themes/twentyfifteen/style.css?ver=4.8.3' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentyfifteen-ie-css'  href='https://nullr0ute.com/wp-content/themes/twentyfifteen/css/ie.css?ver=20141010' type='text/css' media='all' />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='twentyfifteen-ie7-css'  href='https://nullr0ute.com/wp-content/themes/twentyfifteen/css/ie7.css?ver=20141010' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript' src='https://nullr0ute.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='https://nullr0ute.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='https://nullr0ute.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://nullr0ute.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://nullr0ute.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='When creating updates remember to build for rawhide and Fedora 25 (devel)' href='https://nullr0ute.com/2016/08/when-creating-updates-remember-to-build-for-rawhide-and-fedora-25-devel/' />
+<link rel='next' title='Useful commands for manipulating PDFs on Fedora (any linux really)' href='https://nullr0ute.com/2016/09/useful-commands-for-manipulating-pdfs-on-fedora-any-linux-really/' />
+<meta name="generator" content="WordPress 4.8.3" />
+<link rel="canonical" href="https://nullr0ute.com/2016/09/connect-to-a-wireless-network-using-command-line-nmcli/" />
+<link rel='shortlink' href='https://nullr0ute.com/?p=2747' />
+<link rel="alternate" type="application/json+oembed" href="https://nullr0ute.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fnullr0ute.com%2F2016%2F09%2Fconnect-to-a-wireless-network-using-command-line-nmcli%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://nullr0ute.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fnullr0ute.com%2F2016%2F09%2Fconnect-to-a-wireless-network-using-command-line-nmcli%2F&#038;format=xml" />
+</head>
+
+<body class="post-template-default single single-post postid-2747 single-format-standard">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<div id="sidebar" class="sidebar">
+		<header id="masthead" class="site-header" role="banner">
+			<div class="site-branding">
+										<p class="site-title"><a href="https://nullr0ute.com/" rel="home">nullr0ute&#039;s blog</a></p>
+											<p class="site-description">Random tech musings from an Aussie living in London</p>
+									<button class="secondary-toggle">Menu and widgets</button>
+			</div><!-- .site-branding -->
+		</header><!-- .site-header -->
+
+			<div id="secondary" class="secondary">
+
+		
+		
+					<div id="widget-area" class="widget-area" role="complementary">
+						<aside id="recent-posts-4" class="widget widget_recent_entries">		<h2 class="widget-title">Recent Posts</h2>		<ul>
+					<li>
+				<a href="https://nullr0ute.com/2017/11/overview-of-aarch64-sbc-support-in-fedora-27/">Overview of aarch64 SBC support in Fedora 27</a>
+							<span class="post-date">November 9, 2017</span>
+						</li>
+					<li>
+				<a href="https://nullr0ute.com/2017/10/why-im-not-backing-the-purism-librem-5-phone/">Why I&#8217;m not backing the Purism Librem 5 phone</a>
+							<span class="post-date">October 29, 2017</span>
+						</li>
+					<li>
+				<a href="https://nullr0ute.com/2017/09/the-state-of-open-source-accelerated-graphics-on-arm-devices/">The state of open source accelerated graphics on ARM devices</a>
+							<span class="post-date">September 16, 2017</span>
+						</li>
+					<li>
+				<a href="https://nullr0ute.com/2017/09/raspberry-pi-improvements-in-fedora-26/">Raspberry Pi improvements in Fedora 26</a>
+							<span class="post-date">September 1, 2017</span>
+						</li>
+					<li>
+				<a href="https://nullr0ute.com/2017/06/configuring-http2-with-apache-on-fedora/">Configuring HTTP/2 with Apache on Fedora</a>
+							<span class="post-date">June 8, 2017</span>
+						</li>
+				</ul>
+		</aside>		<aside id="search-5" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://nullr0ute.com/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit screen-reader-text" value="Search" />
+			</form></aside><aside id="tag_cloud-5" class="widget widget_tag_cloud"><h2 class="widget-title">Tags</h2><div class="tagcloud"><a href="https://nullr0ute.com/tag/aaa/" class="tag-cloud-link tag-link-63 tag-link-position-1" style="font-size: 8pt;" aria-label="AAA (1 item)">AAA</a>
+<a href="https://nullr0ute.com/tag/aarch64/" class="tag-cloud-link tag-link-59 tag-link-position-2" style="font-size: 17.333333333333pt;" aria-label="aarch64 (18 items)">aarch64</a>
+<a href="https://nullr0ute.com/tag/ac100/" class="tag-cloud-link tag-link-28 tag-link-position-3" style="font-size: 9.7142857142857pt;" aria-label="AC100 (2 items)">AC100</a>
+<a href="https://nullr0ute.com/tag/arm/" class="tag-cloud-link tag-link-79 tag-link-position-4" style="font-size: 22pt;" aria-label="ARM (58 items)">ARM</a>
+<a href="https://nullr0ute.com/tag/beaglebone/" class="tag-cloud-link tag-link-26 tag-link-position-5" style="font-size: 15.047619047619pt;" aria-label="BeagleBone (10 items)">BeagleBone</a>
+<a href="https://nullr0ute.com/tag/board/" class="tag-cloud-link tag-link-17 tag-link-position-6" style="font-size: 15.714285714286pt;" aria-label="Board (12 items)">Board</a>
+<a href="https://nullr0ute.com/tag/cfgmgmt/" class="tag-cloud-link tag-link-54 tag-link-position-7" style="font-size: 11.809523809524pt;" aria-label="cfgmgmt (4 items)">cfgmgmt</a>
+<a href="https://nullr0ute.com/tag/chromebook/" class="tag-cloud-link tag-link-34 tag-link-position-8" style="font-size: 9.7142857142857pt;" aria-label="ChromeBook (2 items)">ChromeBook</a>
+<a href="https://nullr0ute.com/tag/cloud/" class="tag-cloud-link tag-link-8 tag-link-position-9" style="font-size: 12.571428571429pt;" aria-label="Cloud (5 items)">Cloud</a>
+<a href="https://nullr0ute.com/tag/devops/" class="tag-cloud-link tag-link-71 tag-link-position-10" style="font-size: 9.7142857142857pt;" aria-label="devops (2 items)">devops</a>
+<a href="https://nullr0ute.com/tag/docker/" class="tag-cloud-link tag-link-83 tag-link-position-11" style="font-size: 8pt;" aria-label="docker (1 item)">docker</a>
+<a href="https://nullr0ute.com/tag/fedora/" class="tag-cloud-link tag-link-78 tag-link-position-12" style="font-size: 13.238095238095pt;" aria-label="Fedora (6 items)">Fedora</a>
+<a href="https://nullr0ute.com/tag/flock/" class="tag-cloud-link tag-link-25 tag-link-position-13" style="font-size: 11.809523809524pt;" aria-label="Flock (4 items)">Flock</a>
+<a href="https://nullr0ute.com/tag/fudcon/" class="tag-cloud-link tag-link-13 tag-link-position-14" style="font-size: 16.380952380952pt;" aria-label="FUDCon (14 items)">FUDCon</a>
+<a href="https://nullr0ute.com/tag/gnome-2/" class="tag-cloud-link tag-link-29 tag-link-position-15" style="font-size: 13.714285714286pt;" aria-label="GNOME (7 items)">GNOME</a>
+<a href="https://nullr0ute.com/tag/gpus/" class="tag-cloud-link tag-link-36 tag-link-position-16" style="font-size: 11.809523809524pt;" aria-label="GPUs (4 items)">GPUs</a>
+<a href="https://nullr0ute.com/tag/hosting/" class="tag-cloud-link tag-link-20 tag-link-position-17" style="font-size: 13.714285714286pt;" aria-label="hosting (7 items)">hosting</a>
+<a href="https://nullr0ute.com/tag/i-mx/" class="tag-cloud-link tag-link-61 tag-link-position-18" style="font-size: 12.571428571429pt;" aria-label="i.MX (5 items)">i.MX</a>
+<a href="https://nullr0ute.com/tag/iot/" class="tag-cloud-link tag-link-81 tag-link-position-19" style="font-size: 15.047619047619pt;" aria-label="IoT (10 items)">IoT</a>
+<a href="https://nullr0ute.com/tag/ipv6/" class="tag-cloud-link tag-link-4 tag-link-position-20" style="font-size: 10.857142857143pt;" aria-label="IPv6 (3 items)">IPv6</a>
+<a href="https://nullr0ute.com/tag/kernel/" class="tag-cloud-link tag-link-27 tag-link-position-21" style="font-size: 14.666666666667pt;" aria-label="kernel (9 items)">kernel</a>
+<a href="https://nullr0ute.com/tag/koji/" class="tag-cloud-link tag-link-32 tag-link-position-22" style="font-size: 8pt;" aria-label="koji (1 item)">koji</a>
+<a href="https://nullr0ute.com/tag/meego-2/" class="tag-cloud-link tag-link-37 tag-link-position-23" style="font-size: 9.7142857142857pt;" aria-label="MeeGO (2 items)">MeeGO</a>
+<a href="https://nullr0ute.com/tag/mobility/" class="tag-cloud-link tag-link-10 tag-link-position-24" style="font-size: 16.380952380952pt;" aria-label="Mobility (14 items)">Mobility</a>
+<a href="https://nullr0ute.com/tag/network/" class="tag-cloud-link tag-link-57 tag-link-position-25" style="font-size: 11.809523809524pt;" aria-label="network (4 items)">network</a>
+<a href="https://nullr0ute.com/tag/olpc/" class="tag-cloud-link tag-link-5 tag-link-position-26" style="font-size: 17.52380952381pt;" aria-label="OLPC (19 items)">OLPC</a>
+<a href="https://nullr0ute.com/tag/omap/" class="tag-cloud-link tag-link-58 tag-link-position-27" style="font-size: 13.238095238095pt;" aria-label="OMAP (6 items)">OMAP</a>
+<a href="https://nullr0ute.com/tag/openwrt/" class="tag-cloud-link tag-link-74 tag-link-position-28" style="font-size: 8pt;" aria-label="openwrt (1 item)">openwrt</a>
+<a href="https://nullr0ute.com/tag/packaging/" class="tag-cloud-link tag-link-18 tag-link-position-29" style="font-size: 12.571428571429pt;" aria-label="Packaging (5 items)">Packaging</a>
+<a href="https://nullr0ute.com/tag/pandaboard/" class="tag-cloud-link tag-link-41 tag-link-position-30" style="font-size: 11.809523809524pt;" aria-label="Pandaboard (4 items)">Pandaboard</a>
+<a href="https://nullr0ute.com/tag/puppet/" class="tag-cloud-link tag-link-53 tag-link-position-31" style="font-size: 8pt;" aria-label="puppet (1 item)">puppet</a>
+<a href="https://nullr0ute.com/tag/raspberrypi/" class="tag-cloud-link tag-link-75 tag-link-position-32" style="font-size: 13.238095238095pt;" aria-label="RaspberryPi (6 items)">RaspberryPi</a>
+<a href="https://nullr0ute.com/tag/rawhide/" class="tag-cloud-link tag-link-66 tag-link-position-33" style="font-size: 10.857142857143pt;" aria-label="rawhide (3 items)">rawhide</a>
+<a href="https://nullr0ute.com/tag/redhat/" class="tag-cloud-link tag-link-33 tag-link-position-34" style="font-size: 8pt;" aria-label="RedHat (1 item)">RedHat</a>
+<a href="https://nullr0ute.com/tag/rel-eng/" class="tag-cloud-link tag-link-76 tag-link-position-35" style="font-size: 9.7142857142857pt;" aria-label="rel-eng (2 items)">rel-eng</a>
+<a href="https://nullr0ute.com/tag/rhce/" class="tag-cloud-link tag-link-15 tag-link-position-36" style="font-size: 8pt;" aria-label="RHCE (1 item)">RHCE</a>
+<a href="https://nullr0ute.com/tag/rhel/" class="tag-cloud-link tag-link-80 tag-link-position-37" style="font-size: 11.809523809524pt;" aria-label="RHEL (4 items)">RHEL</a>
+<a href="https://nullr0ute.com/tag/serial/" class="tag-cloud-link tag-link-30 tag-link-position-38" style="font-size: 9.7142857142857pt;" aria-label="serial (2 items)">serial</a>
+<a href="https://nullr0ute.com/tag/soas/" class="tag-cloud-link tag-link-7 tag-link-position-39" style="font-size: 16.571428571429pt;" aria-label="SoaS (15 items)">SoaS</a>
+<a href="https://nullr0ute.com/tag/sugarlabs-2/" class="tag-cloud-link tag-link-35 tag-link-position-40" style="font-size: 16.380952380952pt;" aria-label="SugarLabs (14 items)">SugarLabs</a>
+<a href="https://nullr0ute.com/tag/sysadmin/" class="tag-cloud-link tag-link-24 tag-link-position-41" style="font-size: 16.095238095238pt;" aria-label="sysadmin (13 items)">sysadmin</a>
+<a href="https://nullr0ute.com/tag/tegra/" class="tag-cloud-link tag-link-60 tag-link-position-42" style="font-size: 10.857142857143pt;" aria-label="Tegra (3 items)">Tegra</a>
+<a href="https://nullr0ute.com/tag/u-boot/" class="tag-cloud-link tag-link-70 tag-link-position-43" style="font-size: 14.666666666667pt;" aria-label="u-boot (9 items)">u-boot</a>
+<a href="https://nullr0ute.com/tag/x-gene/" class="tag-cloud-link tag-link-67 tag-link-position-44" style="font-size: 9.7142857142857pt;" aria-label="X-Gene (2 items)">X-Gene</a>
+<a href="https://nullr0ute.com/tag/zynq-7000/" class="tag-cloud-link tag-link-62 tag-link-position-45" style="font-size: 11.809523809524pt;" aria-label="Zynq-7000 (4 items)">Zynq-7000</a></div>
+</aside><aside id="pages-3" class="widget widget_pages"><h2 class="widget-title">Pages</h2>		<ul>
+			<li class="page_item page-item-2"><a href="https://nullr0ute.com/about/">About Peter Robinson</a></li>
+		</ul>
+		</aside>			</div><!-- .widget-area -->
+		
+	</div><!-- .secondary -->
+
+	</div><!-- .sidebar -->
+
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+<article id="post-2747" class="post-2747 post type-post status-publish format-standard hentry category-fedora category-iot category-networks tag-aarch64 tag-arm tag-fedora tag-iot tag-network tag-sysadmin">
+	
+	<header class="entry-header">
+		<h1 class="entry-title">Connect to a wireless network using command line nmcli</h1>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>I use a lot of minimal installs on various ARM devices. They&#8217;re good because they&#8217;re quick to download and you can test most of the functionality of the device to ensure it&#8217;s working or to quickly test specific functionality but of course it doesn&#8217;t have a GUI to use the nice graphical tools which are useful to quickly connect to a wifi network or other things.</p>
+<p>This where nmcli comes in handy to quickly do anything you can do with the GUI. To connect to a wireless network I do:</p>
+<p>Check you can see the wireless NIC and that the radio is enabled (basically &#8220;Airplane&#8221; mode):</p>
+<pre>
+# nmcli radio
+WIFI-HW  WIFI     WWAN-HW  WWAN    
+enabled  enabled  enabled  enabled 
+# nmcli device
+DEVICE  TYPE      STATE         CONNECTION 
+wlan0   wifi      disconnected  --         
+eth0    ethernet  unavailable   --         
+lo      loopback  unmanaged     --         
+</pre>
+<p>Then to actually connect to a wireless AP:</p>
+<pre>
+# nmcli device wifi rescan
+# nmcli device wifi list
+# nmcli device wifi connect SSID-Name password wireless-password
+</pre>
+<p>And that should be enough to get you connected. You can list the connection with <b>nmcli connection</b> and various other options. It&#8217;s pretty straight forward. The only complaint I have is that it doesn&#8217;t prompt for a password if you leave it out so it means the AP password is stored on the command line history. Not a major given it&#8217;s quite easy to find where it&#8217;s stored anyway on the system but it would be a useful addition.</p>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="https://nullr0ute.com/2016/09/connect-to-a-wireless-network-using-command-line-nmcli/" rel="bookmark"><time class="entry-date published updated" datetime="2016-09-04T16:14:32+00:00">September 4, 2016</time></a></span><span class="byline"><span class="author vcard"><span class="screen-reader-text">Author </span><a class="url fn n" href="https://nullr0ute.com/author/nullr0ute/">nullr0ute</a></span></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="https://nullr0ute.com/category/fedora/" rel="category tag">Fedora</a>, <a href="https://nullr0ute.com/category/iot/" rel="category tag">IoT</a>, <a href="https://nullr0ute.com/category/networks/" rel="category tag">Networks</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="https://nullr0ute.com/tag/aarch64/" rel="tag">aarch64</a>, <a href="https://nullr0ute.com/tag/arm/" rel="tag">ARM</a>, <a href="https://nullr0ute.com/tag/fedora/" rel="tag">Fedora</a>, <a href="https://nullr0ute.com/tag/iot/" rel="tag">IoT</a>, <a href="https://nullr0ute.com/tag/network/" rel="tag">network</a>, <a href="https://nullr0ute.com/tag/sysadmin/" rel="tag">sysadmin</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-## -->
+<div id="social">
+		<div class="social-post">
+		<div id="loading" style="display:none">
+			<input type="hidden" id="reload_url" value="https://nullr0ute.com/index.php?social_controller=auth&#038;social_action=reload_form&#038;redirect_to=https://nullr0ute.com/2016/09/connect-to-a-wireless-network-using-command-line-nmcli/&#038;post_id=2747" />
+			Logging In...		</div>
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Profile <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2016/09/connect-to-a-wireless-network-using-command-line-nmcli/#respond" style="display:none;">cancel</a></small></h3>			<form action="https://nullr0ute.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+				<div class="social-sign-in-links social-clearfix">
+		<a class="social-twitter social-imr social-login comments" href="https://nullr0ute.com/index.php?social_controller=auth&#038;social_action=authorize&#038;key=twitter&#038;post_id=2747" id="twitter_signin" target="_blank">Sign in with Twitter</a>
+		<a class="social-facebook social-imr social-login comments" href="https://nullr0ute.com/index.php?social_controller=auth&#038;social_action=authorize&#038;key=facebook&#038;post_id=2747" id="facebook_signin" target="_blank">Sign in with Facebook</a>
+	</div>
+<div class="social-divider">
+	<span>or</span>
+</div>
+<p class="social-input-row social-input-row-comment"><label for="comment" class="social-label">Comment</label><textarea id="comment" name="comment" class="social-input" required="required"></textarea></p><p class="social-input-row social-input-row-author"><label for="author" class="social-label">Name</label><input id="author" name="author" class="social-input" required="required" type="text" value="" /></p>
+<p class="social-input-row social-input-row-email"><label for="email" class="social-label">Email</label><input id="email" name="email" class="social-input" required="required" type="text" value="" /><small class="social-help">Not published</small></p>
+<p class="social-input-row social-input-row-url"><label for="url" class="social-label">Website</label><input id="url" name="url" class="social-input" type="text" value="" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post It" /> <input type='hidden' name='comment_post_ID' value='2747' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+<input type="hidden" id="use_twitter_reply" name="use_twitter_reply" value="0" /><input type="hidden" id="in_reply_to_status_id" name="in_reply_to_status_id" value="" /></p><div id="commentform-extras"><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="c68ea44c08" /></p><div class="g-recaptcha" data-sitekey="6LfXZP8SAAAAAHw5nR58ukf1E3TrHkKSKvlA4VGq" data-theme="standard"></div><script type="text/javascript"src="https://www.google.com/recaptcha/api.js?hl=en"></script>            <div id="recaptcha-submit-btn-area">&nbsp;</div>
+            <noscript>
+            <style type='text/css'>#submit {display:none;}</style>
+            <input name="submit" type="submit" id="submit-alt" tabindex="6"
+                value="Submit Comment"/> 
+            </noscript><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="244"/></p></div>			</form>
+			</div><!-- #respond -->
+		</div>
+	<div id="social-tabs-comments">
+				<ul class="social-nav social-clearfix">
+			<li class="social-all social-tab-main social-current-tab"><a href="#" rel="social-all"><span>2 Replies</span></a></li>
+			<li class="social-wordpress"><a href="#" rel="wordpress"><span>2 Comments</span></a></li>
+			<li class="social-twitter"><a href="#" rel="social-twitter"><span>0 Tweets</span></a></li>
+			<li class="social-facebook"><a href="#" rel="social-facebook"><span>0 Facebook</span></a></li>
+			<li class="social-pingback"><a href="#" rel="social-pingback"><span>0 Pingbacks</span></a></li>
+		</ul>
+
+		<!-- panel items -->
+		<div id="social-comments-tab-all" class="social-tabs-panel social-tabs-first-panel">
+			<div id="comments" class="social-comments">
+				<div class="social-last-reply-when">Last reply was September 5, 2016</div><div class="cf-clearfix"></div>				<ol class="social-commentlist">
+				<li class="wordpress even thread-even depth-1 social-comment social-clearfix social-wordpress" id="li-comment-63833">
+<div class="social-comment-inner social-clearfix" id="comment-63833">
+	<div class="social-comment-header">
+		<div class="social-comment-author vcard">
+			<img alt='' src='https://secure.gravatar.com/avatar/5ed91756b896439a6ae2d55f4d712665?s=40&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/5ed91756b896439a6ae2d55f4d712665?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' /><cite class="social-fn fn"><a href='http://marcin.juszkiewicz.com.pl/' rel='external nofollow' class='url'>Marcin Juszkiewicz</a></cite>		</div>
+		<!-- .comment-author .vcard -->
+		<div class="social-comment-meta social-comment-meta-wordpress">
+			<span class="social-posted-from">
+								<span>View</span>
+							</span>
+			<a href="https://nullr0ute.com/2016/09/connect-to-a-wireless-network-using-command-line-nmcli/#comment-63833" class="social-posted-when" target="_blank">September 5, 2016</a>
+		</div>
+	</div>
+	<div class="social-comment-body">
+				<p>You can also use nmtui(-connect) for it.</p>
+<p>Use HISTCONTROL=ignoreboth in bashrc and then just add space before command to not get it added to bash history.</p>
+	</div>
+			<div class="social-actions entry-meta">
+		<a rel='nofollow' class='comment-reply-link' href='https://nullr0ute.com/2016/09/connect-to-a-wireless-network-using-command-line-nmcli/?replytocom=63833#respond' onclick='return addComment.moveForm( "comment-63833", "63833", "respond", "2747" )' aria-label='Reply to Marcin Juszkiewicz'>Reply</a>	</div>
+		<!-- .reply -->
+</div><!-- #comment-63833 -->
+</li><!-- #comment-## -->
+<li class="wordpress odd alt thread-odd thread-alt depth-1 social-comment social-clearfix social-wordpress" id="li-comment-63838">
+<div class="social-comment-inner social-clearfix" id="comment-63838">
+	<div class="social-comment-header">
+		<div class="social-comment-author vcard">
+			<img alt='' src='https://secure.gravatar.com/avatar/86f4dece6ac9d68a2f0cdfd77c332c61?s=40&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/86f4dece6ac9d68a2f0cdfd77c332c61?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' /><cite class="social-fn fn"><a href='http://v3.sk/~lkundrak/' rel='external nofollow' class='url'>Lubomir Rintel</a></cite>		</div>
+		<!-- .comment-author .vcard -->
+		<div class="social-comment-meta social-comment-meta-wordpress">
+			<span class="social-posted-from">
+								<span>View</span>
+							</span>
+			<a href="https://nullr0ute.com/2016/09/connect-to-a-wireless-network-using-command-line-nmcli/#comment-63838" class="social-posted-when" target="_blank">September 5, 2016</a>
+		</div>
+	</div>
+	<div class="social-comment-body">
+				<p>nmcli will ask for the password if you use the &#8220;&#8211;ask&#8221; argument.</p>
+	</div>
+			<div class="social-actions entry-meta">
+		<a rel='nofollow' class='comment-reply-link' href='https://nullr0ute.com/2016/09/connect-to-a-wireless-network-using-command-line-nmcli/?replytocom=63838#respond' onclick='return addComment.moveForm( "comment-63838", "63838", "respond", "2747" )' aria-label='Reply to Lubomir Rintel'>Reply</a>	</div>
+		<!-- .reply -->
+</div><!-- #comment-63838 -->
+</li><!-- #comment-## -->
+				</ol>
+							</div>
+		</div>
+			</div>
+	<!-- #Comments Tabs -->
+	</div>
+
+	<nav class="navigation post-navigation" role="navigation">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://nullr0ute.com/2016/08/when-creating-updates-remember-to-build-for-rawhide-and-fedora-25-devel/" rel="prev"><span class="meta-nav" aria-hidden="true">Previous</span> <span class="screen-reader-text">Previous post:</span> <span class="post-title">When creating updates remember to build for rawhide and Fedora 25 (devel)</span></a></div><div class="nav-next"><a href="https://nullr0ute.com/2016/09/useful-commands-for-manipulating-pdfs-on-fedora-any-linux-really/" rel="next"><span class="meta-nav" aria-hidden="true">Next</span> <span class="screen-reader-text">Next post:</span> <span class="post-title">Useful commands for manipulating PDFs on Fedora (any linux really)</span></a></div></div>
+	</nav>
+		</main><!-- .site-main -->
+	</div><!-- .content-area -->
+
+
+	</div><!-- .site-content -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info">
+						<a href="https://wordpress.org/">Proudly powered by WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+            <script type="text/javascript">
+            var sub = document.getElementById('submit');
+            document.getElementById('recaptcha-submit-btn-area').appendChild (sub);
+            document.getElementById('submit').tabIndex = 6;
+            if ( typeof _recaptcha_wordpress_savedcomment != 'undefined') {
+                document.getElementById('comment').value = 
+                    _recaptcha_wordpress_savedcomment;
+            }
+            </script><script type='text/javascript'>
+/* <![CDATA[ */
+var Sociali18n = {"commentReplyTitle":"Post a Reply"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://nullr0ute.com/wp-content/plugins/social/assets/social.js?ver=3.0'></script>
+<script type='text/javascript' src='https://nullr0ute.com/wp-content/themes/twentyfifteen/js/skip-link-focus-fix.js?ver=20141010'></script>
+<script type='text/javascript' src='https://nullr0ute.com/wp-includes/js/comment-reply.min.js?ver=4.8.3'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var screenReaderText = {"expand":"<span class=\"screen-reader-text\">expand child menu<\/span>","collapse":"<span class=\"screen-reader-text\">collapse child menu<\/span>"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://nullr0ute.com/wp-content/themes/twentyfifteen/js/functions.js?ver=20150330'></script>
+<script type='text/javascript' src='https://nullr0ute.com/wp-includes/js/wp-embed.min.js?ver=4.8.3'></script>
+<script type='text/javascript' src='https://nullr0ute.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0'></script>
+
+</body>
+</html>
