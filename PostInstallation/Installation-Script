@@ -6,8 +6,8 @@ sudo apt-get update -qq
 sudo apt-get install -yy htop gdebi vlc default-jdk python-setuptools python vim pip
 
 #Firefox
-cd ~
-sudo apt install -yy Firefox
+#cd ~
+#sudo apt install -yy Firefox
 
 #CHROME
 cd /home/deco/Downloads
