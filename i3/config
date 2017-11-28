@@ -97,16 +97,16 @@ bindsym $mod+a focus parent
 # i3lock Locks screen with pixelated effect
 bindsym $mod+Shift+x exec "~/.config/i3lock/lock2.sh"
 
-set $workspace1 "1:"
+set $workspace1 "1:"
 set $workspace2 "2:"
 set $workspace3 "3:"
-set $workspace4 "4:"
-set $workspace5 "5:"
+set $workspace4 "4:"
+set $workspace5 "5:"
 set $workspace6 "6:"
 set $workspace7 "7:"
-set $workspace8 "8:"
+set $workspace8 "8:"
 set $workspace9 "9:"
-set $workspace10 "10:"
+set $workspace10 "10:"
 
 #Gaps-setup
 hide_edge_borders both
@@ -144,7 +144,7 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart [class="Polybar"] kill
+bindsym $mod+Shift+r restart 
 
 # exit i3 (logs you out of your X session)
 bindsym $mod+control+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
@@ -204,39 +204,41 @@ bindsym $mod+r mode "resize"
 #bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
 
 #Start-up programs--
-exec_always pkill polybar
 exec_always polybar topbar
-exec_always compton -f
+exec_always compton 
 exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/Wallpaper-028.jpg
 exec_always --no-startup-id dunst -config ~/.config/dunst/config 
 exec --no-startup-id pulseeffects
-exec --no-startup-id google-chrome
+#exec --no-startup-id google-chrome
+exec --no-startup-id firefox
+exec --no-startup-id franz
 exec --no-startup-id spotify
 exec --no-startup-id virtualbox
 #Supposed to fix something with icons...
 exec_always gsettings set org.gnome.desktop.background show-desktop-icons false
 exec_always gsettings set org.nemo.desktop show-desktop-icons false
-# Launch Unclutter to hide the mouse
-exec --no-startup-id unclutter &
 exec --no-startup-id redshift -c /home/deco/.config/redshift/redshift.conf
 
 #Assign apps to workspaces
 assign [class="Google-chrome"]	$workspace1
+assign [class="Firefox"] $workspace1
 assign [class="Gnome-terminal"] $workspace2
 assign [class="Nemo"] $workspace3
-#assign [class="spotify"] $workspace4
+assign [class="Franz"] $workspace4
+#assign [class="spotify"] $workspace5
 assign [class="Transmission-gtk"] $workspace6
 assign [class="libreoffice-writer"] $workspace7
 assign [class="libreoffice"] $workspace7
+assign [class="Wps"] $workspace7
 assign [class="VirtualBox"]	$workspace10
 
 #Usign for_window because regular assign doesnt work with this.
-for_window [class="Spotify"] move to workspace $workspace4
-for_window [class="Pulseeffects"] move to workspace $workspace5
+for_window [class="Spotify"] move to workspace $workspace5
+for_window [class="Pulseeffects"] move to workspace $workspace8
 
 for_window [class="Pulseeffects"] floating disable
 
 #Personal bindings
 bindsym $mod+e exec nemo
-bindsym Print exec "mkdir -p ~/Pictures/Screenshots && scrot -q 100 ~/Pictures/Screenshots/screenshot.jpg"
+bindsym Print exec "mkdir -p ~/Pictures/Screenshots && scrot -q 100 ~/Pictures/Screenshots/'%Y-%m-%d_%H-%M-%S.png'"
 

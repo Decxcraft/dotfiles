@@ -311,6 +311,10 @@
     appname = Spotify
     format = "<span foreground="#84bd00" font="12"> </span><b>Now Playing:</b>\n%s\n%b"
     timeout = 5
-    #
+  
+[Franz]
+    appname = Franz
+    format = <span foreground="#0000ff" font="12"></span> %s \n %b
+    timeout = 7
 #
 # vim: ft=cfg
