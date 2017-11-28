@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #Installing some utilities HTOP, VLC, GDEBI
-
 cd ~
 sudo apt-get update -qq
 sudo apt-get install -yy htop gdebi vlc default-jdk python-setuptools python vim pip
@@ -13,8 +12,8 @@ sudo apt install -yy Firefox
 #CHROME
 cd /home/deco/Downloads
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo gdebi -n google-chrome-stable_current_amd64.deb
-rm -f google-chrome-stable_current-amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+#rm -f google-chrome-stable_current-amd64.deb
 cd ~
 
 #SPOTIFY
@@ -23,10 +22,10 @@ echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sourc
 sudo apt-get update -qq
 sudo apt-get install -yy spotify-client
 
-#Installing DOCKY
-#sudo add-apt-repository ppa:docky-core/stable
-#sudo apt-get update -qq
-#sudo apte-get install -yy docky
+#DOCKY
+sudo add-apt-repository ppa:docky-core/stable
+sudo apt-get update -qq
+sudo apte-get install -yy docky
 
 #MegaSync
 cd /home/deco/Downloads
@@ -61,3 +60,9 @@ sudo add-apt-repository ppa:no1wantdthisname/ppa
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install fontconfig-infinality
+
+#PulseEffects-Audio Equalizer
+wget -q -O- http://repo.dumalogiya.ru/keys/mikhailnov_pub.gpg | sudo apt-key add -
+echo "deb http://repo.dumalogiya.ru/aptly/public artful main" | sudo tee /etc/apt/sources.list.d/dumalogiya-artful.list
+sudo apt update
+sudo apt install pulseeffects1
