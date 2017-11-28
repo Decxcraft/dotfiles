@@ -55,3 +55,9 @@ sudo adduser deco vboxusers
 cd /home/deco/Downloads
 wget https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.14/franz_5.0.0-beta.14_amd64.deb
 sudo dpkg -i franz_5.0.0-beta.14_amd64.deb
+
+#Better font rendering
+sudo add-apt-repository ppa:no1wantdthisname/ppa
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install fontconfig-infinality
