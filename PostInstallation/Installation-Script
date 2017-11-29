@@ -30,13 +30,13 @@ sudo apte-get install -yy docky
 #MegaSync
 cd /home/deco/Downloads
 wget https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/megasync-xUbuntu_16.04_amd64.deb
-sudo gdebi -n megasync-xUbuntu_16.04_amd64.deb
+sudo dpkg -i megasync-xUbuntu_16.04_amd64.deb
 cd ~
 
 #Slack
 cd /home/deco/Downloads
 wget https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.1-amd64.deb
-sudo gdebi -n slack-desktop-2.8.1-amd64.deb
+sudo dpkg -i slack-desktop-2.8.1-amd64.deb
 cd ~
 
 #SublimeText
@@ -47,8 +47,8 @@ sudo apt-get update -qq
 sudo apt-get install -yy sublime-text
 
 #VIRTUALBOX
-sudo apt-get install -yy virtualbox virtualbox-ext-pack
-sudo adduser deco vboxusers
+#sudo apt-get install -yy virtualbox virtualbox-ext-pack
+#sudo adduser deco vboxusers
 
 #Franz-Messaging app manager
 cd /home/deco/Downloads
@@ -65,4 +65,4 @@ sudo apt-get install fontconfig-infinality
 wget -q -O- http://repo.dumalogiya.ru/keys/mikhailnov_pub.gpg | sudo apt-key add -
 echo "deb http://repo.dumalogiya.ru/aptly/public artful main" | sudo tee /etc/apt/sources.list.d/dumalogiya-artful.list
 sudo apt update
-sudo apt install pulseeffects1
+sudo apt install pulseeffects
