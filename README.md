@@ -14,3 +14,6 @@
 <li>FontAwesome</li>
 <li>System San Francisco Display</li>
 </ul>
+
+<b>Post-installation</b>
+<p>Cointains some files/scripts to help reinstallation process, such as InstallationScript2.0</p>
