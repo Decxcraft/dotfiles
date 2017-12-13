@@ -57,14 +57,14 @@ sudo apt-get install -yy spotify-client
 echo -e "Blocking Spotify ads...\n"
 cd /home/deco/Downloads/
 wget https://raw.githubusercontent.com/Decxcraft/dotfiles/master/PostInstallation/blockspotifyads.txt
-sudo cat blockspotifyads.txt >> /etc/hosts
+sudo sh -c "cat blockspotifyads.txt >> /etc/hosts"
 echo -e "Done blocking ads...\n"
 
 #-----------------------------------------------------------------------------------------------------------------
 
 #Installing Docky
 echo -e "Adding Docky repository... \n"
-sudo add-apt-repository ppa:docky-core/stable
+sudo add-apt-repository ppa:docky-core/stable -y
 echo -e "Updating list of available packages...\n"
 sudo apt-get update
 echo -e "\nInstalling Docky... \n"
@@ -95,7 +95,7 @@ sudo dpkg -i franz_5.0.0-beta.14_amd64.deb
 
 #Better font rendering
 echo -e "Installing Better font rendering...\n"
-sudo add-apt-repository ppa:no1wantdthisname/ppa
+sudo add-apt-repository ppa:no1wantdthisname/ppa -y
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install fontconfig-infinality
