@@ -17,6 +17,8 @@ sudo apt-get upgrade -yy
 echo -e "\nFinished upgrade...\n"
 echo -e "Installing htop, vlc, default-jdk, python, python-setuptools, python-pip, git, fdupes...\n"
 sudo apt-get install -yy htop vlc default-jdk python python-setuptools python-pip git fdupes
+#Upgrading pip. The one installed from repositorys is outdated [2017-12-14]
+pip install --upgrade pip
 echo -e "\nFinished apt-get install...\n"
 
 #Make folder for .deb packages/installers
