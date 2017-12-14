@@ -3,7 +3,7 @@
 #Redirects file descriptors to created log file (date-time_Installation-log.txt), all console output is written to file.
 exec 3>&1 4>&2
 trap 'exec 2>&4 1>&3' 0 1 2 3
-exec 1>/home/deco/Downloads/$(date +'%Y%m%d-%T')_Installation-log.txt 2>&1
+exec 1>/home/$USER/Downloads/$(date +'%Y%m%d-%T')_Installation-log.txt 2>&1
 
 #-------------------------------------------------------------------------------------------------
 
@@ -20,14 +20,14 @@ sudo apt-get install -yy htop vlc default-jdk python python-setuptools python-pi
 echo -e "\nFinished apt-get install...\n"
 
 #Make folder for .deb packages/installers
-echo -e "Making directory /home/deco/Downloads/deb-packages ...\n"
-mkdir -p /home/deco/Downloads/deb-packages
+echo -e "Making directory /home/$USER/Downloads/deb-packages ...\n"
+mkdir -p /home/$USER/Downloads/deb-packages
 
 #-------------------------------------------------------------------------------------------------------------
 
 #Install Chrome 
 echo -e "Downloading Google Chrome..."
-cd /home/deco/Downloads/deb-packages
+cd /home/$USER/Downloads/deb-packages
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 echo -e "Installing Google Chrome...\n"
 sudo dpkg -i google-chrome-stable_current_amd64.deb
@@ -55,7 +55,7 @@ sudo apt-get install -yy spotify-client
 #Blocking Adds
 #Add contents of blockspotifyads.txt to /etc/hosts [sudo required]
 echo -e "Blocking Spotify ads...\n"
-cd /home/deco/Downloads/
+cd /home/$USER/Downloads/
 wget https://raw.githubusercontent.com/Decxcraft/dotfiles/master/PostInstallation/blockspotifyads.txt
 sudo sh -c "cat blockspotifyads.txt >> /etc/hosts"
 echo -e "Done blocking ads...\n"
@@ -85,7 +85,7 @@ sudo apt-get install -yy sublime-text
 #---------------------------------------------------------------------------------------------------------------------
 
 #Franz-Messaging app manager
-cd /home/deco/Downloads/deb-packages/
+cd /home/$USER/Downloads/deb-packages/
 echo -e "Downloading Franz... \n"
 wget https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.14/franz_5.0.0-beta.14_amd64.deb
 echo -e "Installing Franz... \n"
