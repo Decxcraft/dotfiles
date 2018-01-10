@@ -22,8 +22,8 @@ pip install --upgrade pip
 echo -e "\nFinished apt-get install...\n"
 
 #Make folder for .deb packages/installers
-echo -e "Making directory /home/$USER/Downloads/deb-packages ...\n"
-mkdir -p /home/$USER/Downloads/deb-packages
+echo -e "Making directory /home/$USER/Downloads/Installers-deb-sh-targz ...\n"
+mkdir -p /home/$USER/Downloads/Installers-deb-sh-targz
 
 #-------------------------------------------------------------------------------------------------------------
 
