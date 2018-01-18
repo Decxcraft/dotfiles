@@ -15,8 +15,8 @@ echo -e "\nFinished update...\n"
 echo -e "Staring upgrade...\n"
 sudo apt-get upgrade -yy
 echo -e "\nFinished upgrade...\n"
-echo -e "Installing htop, vlc, default-jdk, python, python-setuptools, python-pip, git, fdupes...\n"
-sudo apt-get install -yy htop vlc default-jdk python python-setuptools python-pip git fdupes
+echo -e "Installing htop, vlc, default-jdk, python, python-setuptools, python-pip, git, fdupes, ffmpeg...\n"
+sudo apt-get install -yy htop vlc default-jdk python python-setuptools python-pip git fdupes ffmpeg
 #Upgrading pip. The one installed from repositorys is outdated [2017-12-14]
 pip install --upgrade pip
 echo -e "\nFinished apt-get install...\n"
