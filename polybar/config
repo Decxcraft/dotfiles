@@ -21,7 +21,8 @@ cancel = #FF0000
 continue = #00FF00
 
 [bar/topbar]
-;monitor = ${env:MONITOR}
+;${env:MONITOR}
+monitor = 
 width = 100%
 height = 30
 ;offset-x = 0
@@ -53,7 +54,7 @@ font-2 = System San Francisco Display:style=Ultralight:pixelsize=4;2
 
 modules-left =ewmh music 
 modules-center = date weather
-modules-right = battery volume cpu memory temperature wlan redshift
+modules-right = battery volume cpu memory filesystem temperature wlan vpn redshift
 
 ;tray-position = right
 ;tray-padding = 5
@@ -62,11 +63,11 @@ modules-right = battery volume cpu memory temperature wlan redshift
 ;tray-detached = false
 ;tray-underline = ${colors.primary}
 
-wm-restack = i3
+;wm-restack = i3
 ;override-redirect = true
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
 
 [module/weather]
 type = custom/script
@@ -86,6 +87,13 @@ format-prefix-underline=${colors.foreground}
 label=%output%
 ;label-underline=${colors.foreground-alt}
 
+[module/vpn]
+type = custom/script
+interval 5
+exec = ~/.config/polybar/vpn.sh
+formta=<label>
+label=%output%
+
 ;[module/xwindow]
 ;type = internal/xwindow
 ;label = %title:0:30:-%
@@ -96,8 +104,8 @@ label=%output%
 [module/filesystem]
 type = internal/fs
 interval = 25
-mount-0 = /
-label-mounted =  %percentage_used%% 
+mount-0 = /home
+label-mounted =|  %free% free
 format-mounted = <label-mounted>
 ;label-mounted-underline= ${colors.foreground-alt}
 label-mounted-foreground = ${colors.foreground}
@@ -141,13 +149,15 @@ label-mounted-foreground = ${colors.foreground}
 type = custom/script
 interval = 2
 
-label = %output:0:80:...%
+format = <label>
+label = %output%
 label-padding-left = 3 
 label-font = 1
 exec = ~/.config/polybar/mpris.sh
 click-left = playerctl previous
 click-middle = playerctl play-pause
 click-right = playerctl next
+
 
 [module/mpd]
 type = internal/mpd 
@@ -179,7 +189,7 @@ interval=2
 ;format-prefix=
 format-prefix-foreground=${colors.foreground}
 ;format-underline = ${colors.foreground-alt}
-label= %percentage%%
+label= |  %percentage%%
 
 [module/memory]
 type = internal/memory
@@ -187,7 +197,7 @@ interval = 2
 ;format-prefix =  
 ;format-prefix-foreground = ${colors.foreground}
 ;format-underline = ${colors.foreground-alt}
-label = %gb_used%
+label = |  %gb_used%
 
 [module/date]
 type = internal/date
@@ -202,7 +212,7 @@ label = %date% - %time%
 [module/volume]
 type = internal/volume
 interval = 1
-format-volume = <label-volume> 
+format-volume = | <label-volume> 
 label-volume = %percentage% 
 label-volume-foreground = ${colors.foreground}
 ;label-volume-underline = ${colors.foreground-alt}
@@ -222,19 +232,19 @@ format = <label>
 ;format-warn = <ramp> <lael-warn>
 ;format-warn-underline = ${self.format-underline}
 
-label = %temperature%
+label = |  %temperature%
 label-warn = %temperature%
 label-warn-foreground = ${colors.foreground}
 
 [module/wlan]
 type = internal/network
 interface = wlp3s0
-interval = 3.0
+interval = 1.0
 
 ;format-connected-prefix = 
 format-connected = <label-connected>
 ;format-connected-underline = #9f78e1
-label-connected = %essid%
+label-connected = |  %essid% | %downspeed% |
 
 ;format-disconnected =
 format-disconnected = <label-disconnected>

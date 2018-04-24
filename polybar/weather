@@ -1,7 +1,8 @@
 #!/bin/python
 # -*- coding: utf-8 -*-
 import requests
-
+#4128894 Rogers,Arkansas
+#6167865 Toronto, Ontario
 CITY = "6167865"
 API_KEY = "bfd92bb103b04d4f7bc58df281a98909"
 UNITS = "Metric"
